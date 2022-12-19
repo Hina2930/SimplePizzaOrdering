@@ -1,0 +1,40 @@
+<div class="card-box">
+    <div class="row">
+      <div class="col-sm-4">
+        <a routerLink="place" id="addbtn"  class="btn btn-success btn-rounded">Add New</a>
+    </div>
+  </div>
+  <br>
+    
+    <div class="row">
+              <div class="table-responsive">
+                  
+                    <table class="table table-bordered" id="datatable" role="grid" >
+                      <thead class="bg-primary text-white">
+                          <tr role="row">
+                            <th>Piza Size</th>
+                            <th>Veg Topping</th>
+                            <th>Non-Veg Topping</th>
+                            <th>Total Bill</th>
+                            <th>Actions</th>
+                            </tr>
+                      </thead>
+                      <tbody>
+            <tr *ngFor="let item of orderplaceList">
+                  <td>{{item.pizzasize?.name}} {{item.pizzasize?.prize | currency}}</td>
+                  <td><tr *ngFor="let veg of item.vegtoppings">
+                  <td>{{veg.name}}</td>
+                  </tr> </td>
+                  <td><tr *ngFor="let nonveg of item.nonvegtoppings">
+                  <td>{{nonveg.name}}</td>
+                  </tr> </td>
+                  <td>{{item.totalbill | currency}}</td>
+                  <td><button (click)="edit(item.id)" class="btn btn-primary">Edit</button> 
+                      <button (click)="delete(item.id)" class="btn btn-danger">Delete</button></td> 
+            </tr> 
+                      </tbody>
+                  </table>
+                
+              </div>
+          </div>
+        </div>

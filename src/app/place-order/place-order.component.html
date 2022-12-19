@@ -1,0 +1,97 @@
+<div class="card-box">
+    <div class="row" style="text-align: left;display: block;">
+        <button type="button" class="btn btn-primary btn-lg btn-back" (click)="back()">Back</button>
+        <h2>Add/Edit Pizza Details</h2>
+    </div>
+    <form (ngSubmit)="onSubmit()">
+    <div class="leftbox">
+        <div class="row" style="text-align: left;display: block;">
+            <h4>Pizza size</h4>
+        <ul class="pizza">
+            <li *ngFor="let  pizzasize of pizzasizes">
+              <button [class.selected]=" pizzasize === selectedpizzaSize" type="button" (click)="onSelect( pizzasize)" id="{{pizzasize.prize}}">
+                <span class="name">{{ pizzasize.prize | currency}} {{ pizzasize.name}}</span>
+              </button>
+            </li>
+        </ul>
+        </div>
+
+            <div class="row" style="text-align: left;display: block;">
+            <h4>Toppings</h4>
+        
+                <div style="width:50%">
+                    <ng-multiselect-dropdown
+                    [placeholder]="'Veg Options'"
+                    [settings]="dropdownSettingsForVeg"
+                    [data]="vegtoppings"
+                    (onSelect)="onItemSelect($event, 'Veg')"
+                    (onSelectAll)="onSelectAll('Veg')"
+                    (onDeSelect)="onItemDeSelect($event, 'Veg')"
+                    (onDeSelectAll)="onUnSelectAll('Veg')" [(ngModel)]="selectedVegItem" [ngModelOptions]="{standalone: true}">
+                    
+                </ng-multiselect-dropdown>
+                </div>
+                <div style="width:50%">
+                    <ng-multiselect-dropdown
+                    [placeholder]="'Non Veg Options'"
+                    [settings]="dropdownSettingsForNonVeg"
+                    [data]="nonvegtoppings"
+                    (onSelect)="onItemSelect($event, 'NonVeg')"
+                    (onSelectAll)="onSelectAll('NonVeg')"
+                    (onDeSelect)="onItemDeSelect($event, 'NonVeg')"
+                    (onDeSelectAll)="onUnSelectAll('NonVeg')" [(ngModel)]="selectedNonVegItem" [ngModelOptions]="{standalone: true}">
+                </ng-multiselect-dropdown>
+                </div>
+            </div>
+            <div class="row" style="text-align: left;display: block;">
+                    <h4>Promotional Offers - comming soon!!!</h4>
+                    <div style="width:50%">
+                        <ng-multiselect-dropdown
+                        [placeholder]="'Offers'"
+                        [settings]="dropdownSettingsForProm"
+                        [data]="promotionaloffers"
+                        (onSelect)="onItemSelect($event, 'Promotional')"
+                        (onSelectAll)="onSelectAll('Promotional')"
+                        (onDeSelect)="onItemDeSelect($event, 'Promotional')"
+                        (onDeSelectAll)="onUnSelectAll('Promotional')">
+                    </ng-multiselect-dropdown>
+                    </div>
+            </div>
+    </div>
+    <div class="rightbox">
+                <div *ngIf="selectedpizzaSize">
+                    <h2>{{selectedpizzaSize.name | uppercase}}</h2>
+                    <div>Size Prize: {{selectedpizzaSize.prize | currency}}</div>
+                </div>
+                <div *ngIf="selectedVegItem">
+                    <div>Veg Toppings</div>
+                    <ul>
+                        <li *ngFor="let  vegitem of selectedVegItem">
+                    <div>{{vegitem.name | uppercase}}</div>
+                    </li></ul>
+                </div>
+
+                <div *ngIf="selectedNonVegItem">
+                    <div>Non Veg Toppings</div>
+                    <ul>
+                        <li *ngFor="let  nonvegitem of selectedNonVegItem">
+                    <div>{{nonvegitem.name | uppercase}}</div>
+                    </li></ul>
+                </div>
+                <div>
+                    <label>
+                    Total Bill : {{totalPrice | currency}}
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="offset-lg-3 col-lg-2">
+                        <br>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+    </div>
+    </form>
+</div>
